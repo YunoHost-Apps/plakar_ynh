@@ -32,7 +32,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Installing dependencies..."
 
-ynh_install_go --go_version=$go_version
+ynh_go_install --go_version=$go_version
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
