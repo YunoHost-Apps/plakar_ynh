@@ -42,7 +42,15 @@ ynh_script_progression "Setting up source files..."
 ### `ynh_setup_source` is used to install an app from a zip or tar.gz file,
 ### downloaded from an upstream source, as defined in the manifest.toml
 
-ynh_setup_source --dest_dir="$install_dir"
+tempdir="$(mktemp -d)"
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source --dest_dir="$tempdir"
+
+dpkg --install $tempdir/plakar.deb
+
+ynh_safe_rm "$tempdir"
+
+#ynh_setup_source --dest_dir="$install_dir"
 
 # $install_dir will automatically be initialized with some decent
 # permission by default ... however, you may need to recursively reapply
@@ -50,7 +58,7 @@ ynh_setup_source --dest_dir="$install_dir"
 
 chown -R $app:www-data "$install_dir"
 
-ynh_replace --match="1.23.3" --replace="1.23" --file="$install_dir/go.mod"
+#ynh_replace --match="1.23.3" --replace="1.23" --file="$install_dir/go.mod"
 
 #=================================================
 # SYSTEM CONFIGURATION
@@ -95,23 +103,11 @@ yunohost service add "$app" --description="Plakar backup app service" --log="/va
 #=================================================
 ynh_script_progression "Installing $app..."
 
-pushd "$install_dir/"
-  ynh_exec_as_app echo go version
-  ynh_exec_as_app CGO_ENABLED=0 go install $install_dir/
-  #ynh_exec_as_app CGO_ENABLED=0 go install github.com/PlakarKorp/plakar@latest
-popd
-
-#=================================================
-# FINALIZE APP INSTALL WITH CURL
-#=================================================
-ynh_script_progression "Finalizing installation..."
-
-### Use these lines only if the app installation needs to be finalized through
-### web forms. We generally don't want to ask the final user,
-### so we're going to use curl to automatically fill the fields and submit the
-### forms.
-
-# ynh_local_curl "/INSTALL_PATH" "key1=value1" "key2=value2" "key3=value3"
+#pushd "$install_dir/"
+#  ynh_exec_as_app echo go version
+#  ynh_exec_as_app CGO_ENABLED=0 go install $install_dir/
+#  #ynh_exec_as_app CGO_ENABLED=0 go install github.com/PlakarKorp/plakar@latest
+#popd
 
 #=================================================
 # START SYSTEMD SERVICE
