@@ -73,3 +73,11 @@ ram.runtime = "50M"
     # This will automatically install/uninstall the following apt packages
     # and implicitly define the $php_version setting as 8.3 (if php8.3-foobar dependencies are listed)
     packages = "ca-certificates, golang "
+
+    [resources.install_dir]
+    # This will create/remove the install dir as /var/www/$app
+    # and store the corresponding setting $install_dir
+
+    [resources.data_dir]
+    # This will create/remove the data dir as /home/yunohost.app/$app
+    # and store the corresponding setting $data_dir
