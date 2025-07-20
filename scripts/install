@@ -96,7 +96,6 @@ yunohost service add "$app" --description="Plakar backup app service" --log="/va
 ynh_script_progression "Installing $app..."
 
 pushd "$install_dir/"
-  ynh_exec_as_app echo $ynh_go version
   ynh_exec_as_app echo go version
   ynh_exec_as_app CGO_ENABLED=0 $ynh_go install $install_dir/
   #ynh_exec_as_app CGO_ENABLED=0 $ynh_go install github.com/PlakarKorp/plakar@latest
