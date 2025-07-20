@@ -13,7 +13,7 @@ version = "1.0.2~ynh1"
 maintainers = ["Lapineige"]
 
 [upstream]
-license = "OpenBSD"
+license = "ISC"
 website = "https://plakar.io/"
 demo = "https://demo.plakar.io/"
 admindoc = "https://docs.plakar.io/"
