@@ -8,7 +8,7 @@ User=__APP__
 Group=__APP__
 
 WorkingDirectory=__INSTALL_DIR__/
-ExecStart=__INSTALL_DIR__/plakar agent
+ExecStart=__INSTALL_DIR__/plakar agent && __INSTALL_DIR__/plakar ui -addr localhost:__PORT__ -no-spawn
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 Restart=on-failure
