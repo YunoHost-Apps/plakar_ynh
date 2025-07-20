@@ -81,3 +81,6 @@ ram.runtime = "50M"
     [resources.data_dir]
     # This will create/remove the data dir as /home/yunohost.app/$app
     # and store the corresponding setting $data_dir
+
+    [resources.system_user]
+    # This will provision/deprovision a unix system user
