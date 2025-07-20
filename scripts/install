@@ -119,7 +119,7 @@ ynh_config_add_systemd
 ### weren't enabled on old installs (be careful it'll override the existing
 ### service though so you should re-provide all relevant flags when doing so)
 
-yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="Plakar backup app service" --log="/var/log/$app/$app.log"
 
 #=================================================
 # INSTALL APP
