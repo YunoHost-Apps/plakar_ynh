@@ -67,7 +67,7 @@ ynh_script_progression "Adding app's configuration file..."
 ###
 ### Check the documentation of `ynh_config_add` for more info.
 
-ynh_config_add --template="" --destination="$install_dir/"
+# ynh_config_add --template="" --destination="$install_dir/"
 
 # FIXME: this should be handled by the core in the future
 ### You may need to use chmod 600 instead of 400,
