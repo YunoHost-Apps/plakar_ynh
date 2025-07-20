@@ -1,0 +1,75 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/main/schemas/manifest.v2.schema.json
+
+packaging_format = 2
+
+id = "plakar"
+name = "Plakar"
+
+description.en = "Backup solution powered by Kloset and ptar"
+description.fr = "Backup solution powered by Kloset and ptar"
+
+version = "1.0.2~ynh1"
+
+maintainers = ["Lapineige"]
+
+[upstream]
+license = "OpenBSD"
+website = "https://plakar.io/"
+demo = "https://demo.plakar.io/"
+admindoc = "https://docs.plakar.io/"
+userdoc = "https://docs.plakar.io/"
+code = "https://github.com/PlakarKorp/plakar"
+
+[integration]
+yunohost = '>= 11.2.30'
+helpers_version = "2.1"
+# List of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386']
+architectures = "all"
+multi_instance = false
+ldap = "not_relevant"
+sso = "false"
+disk = "50M"
+ram.build = "50M"
+ram.runtime = "50M"
+
+[install]
+
+    [install.domain]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+    type = "domain"
+
+    [install.path]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+    type = "path"
+    default = "/plakar"
+
+    [install.init_main_permission]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+    # This won't be saved as setting and will instead be used to initialize the SSOwat permission
+    type = "group"
+    default = "all_users"
+
+[resources]
+    # See the packaging documentation for the full set
+    # of explanation regarding the behavior and properties for each of those
+    # https://yunohost.org/packaging_apps_resources
+
+    [resources.sources]
+
+        [resources.sources.main]
+        url = "https://github.com/PlakarKorp/plakar"
+        sha256 = "4b5ae950daece28a6490273b5563fc1649d683cfd481ef86931ee83a4b02dabb"
+
+        autoupdate.strategy = "latest_github_release"
+
+    [resources.permissions]
+    # This will configure SSOwat permission for $domain/$path/
+    # The initial allowed group of user is configured via the init_main_permission question (public=visitors, private=all_users)
+    main.url = "/"
+
+    [resources.ports]
+    # This will pick a random port for reverse-proxying and store it as the $port setting
+    [resources.apt]
+    # This will automatically install/uninstall the following apt packages
+    # and implicitly define the $php_version setting as 8.3 (if php8.3-foobar dependencies are listed)
+    packages = "ca-certificates, golang "

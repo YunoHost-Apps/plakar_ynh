@@ -1,0 +1,45 @@
+#!/bin/bash
+#### App file generated with YoloGen, the YunoHost app generator, version .
+
+# This is the tutorial version of the app.
+# It contains extra commands to explain what should be done in case you want to adjust some part of the script.
+# Once you are done, you may remove them.
+
+source ../settings/scripts/_common.sh
+source /usr/share/yunohost/helpers
+
+ynh_print_info "Declaring files to be backed up..."
+
+### N.B. : the following 'ynh_backup' calls are only a *declaration* of what needs
+### to be backuped and not an actual copy of any file. The actual backup that
+### creates and fill the archive with the files happens in the core after this
+### script is called. Hence ynh_backups calls takes basically 0 seconds to run.
+
+#=================================================
+# BACKUP THE APP MAIN DIR
+#=================================================
+
+ynh_backup "$install_dir"
+
+#=================================================
+# SYSTEM CONFIGURATION
+#=================================================
+
+ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
+
+ynh_backup "/etc/systemd/system/$app.service"
+
+#=================================================
+# BACKUP VARIOUS FILES
+#=================================================
+
+### For apps with huge logs, you might want to pass --is_big,
+### and in restore script, mkdir and pass --not_mandatory to ynh_restore_file.
+
+ynh_backup "/var/log/$app/" # TODO: add an option to specify log file
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_print_info "Backup script completed for $app. (YunoHost will then actually copy those files to the archive)."

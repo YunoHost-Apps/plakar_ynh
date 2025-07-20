@@ -1,0 +1,52 @@
+#!/bin/bash
+### App file generated with YoloGen, the YunoHost app generator, version .
+
+# This is the tutorial version of the app.
+# It contains extra commands to explain what should be done in case you want to adjust some part of the script.
+# Once you are done, you may remove them.
+
+source ../settings/scripts/_common.sh
+source /usr/share/yunohost/helpers
+
+#=================================================
+# RESTORE SYSTEM CONFIGURATIONS
+#=================================================
+ynh_script_progression "Restoring system configurations related to $app..."
+
+### This should be a symetric version of what happens in the install script
+
+ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
+
+ynh_restore "/etc/systemd/system/$app.service"
+systemctl enable "$app.service" --quiet
+
+yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
+
+#=================================================
+# RESTORE VARIOUS FILES
+#=================================================
+
+### For apps with huge logs, you might want to not backup logs every time:
+### The mkdir call is just here in case the log directory was not backed up.
+### mkdir -p "/var/log/$app"
+### chown $app:www-data "/var/log/$app"
+### ynh_restore_file --src_path="/var/log/$app/" --not_mandatory
+###
+### For other apps, the simple way is better:
+
+ynh_restore "/var/log/$app/"
+
+#=================================================
+# RELOAD NGINX AND PHP-FPM OR THE APP SERVICE
+#=================================================
+ynh_script_progression "Reloading NGINX web server and $app's service..."
+
+ynh_systemctl --service="$app" --action="start"
+
+ynh_systemctl --service=nginx --action=reload
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_script_progression "Restoration completed for $app"
