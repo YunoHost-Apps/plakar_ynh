@@ -30,7 +30,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression "Installing dependencies..."
+ynh_script_progression "Installing dependencies... This make take a while."
 
 ynh_go_install --go_version=$go_version
 
