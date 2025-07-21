@@ -48,6 +48,20 @@ ram.runtime = "50M"
     # This won't be saved as setting and will instead be used to initialize the SSOwat permission
     type = "group"
     default = "all_users"
+    
+    [install.encrypt]
+    ask.en = "Do you want to encrypt your backups ?"
+    ask.fr = "Voulez-vous chiffrer vos sauvegardes ?"
+    type = "boolean"
+    default = true
+
+    [install.encryption_passphrase]
+    ask.en = "Set the password for encryption."
+    ask.fr = "Définissez le mot de passe de chiffrement."
+    help.en = "It's needed if you use backup encryption. You will need a strong enough password (or rather passphrase) for Plakar to accept it, allowing to install it."
+    help.fr = "C'est nécessaire si vous utilisez le chiffrement. Vous aurez besoin d'un mot de passe (ou plutôt d'une phrase de passe) solide pour que Plakar la valide, permettant l'installation.""
+    type = "password"
+    optional = true
 
 [resources]
     # See the packaging documentation for the full set
