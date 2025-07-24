@@ -111,6 +111,10 @@ ynh_config_add_systemd
 
 yunohost service add "$app" --description="Plakar backup app service" --log="/var/log/$app/$app.log"
 
+
+# Add Cron configuration file
+ynh_add_config --template="plakar.cron" --destination="/etc/cron.d/$app"
+
 #=================================================
 # INSTALL APP
 #=================================================
