@@ -36,6 +36,11 @@ yunohost service add "$app" --description="Plakar backup app service" --log="/va
 
 ynh_restore "/var/log/$app/"
 
+mkdir -p "$data_dir"
+chown $app:www-data "$data_dir"
+
+ynh_restore_file --src_path="$data_dir" --not_mandatory
+
 #=================================================
 # RELOAD NGINX AND PHP-FPM OR THE APP SERVICE
 #=================================================
