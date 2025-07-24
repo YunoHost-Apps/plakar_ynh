@@ -20,8 +20,7 @@ _set_frequencies() {
       "4am")               frequency_time="4" ; ynh_app_setting_set --app="$app" --key="frequency_time" --value="$frequency_time" ;;
       "6am")               frequency_time="6" ; ynh_app_setting_set --app="$app" --key="frequency_time" --value="$frequency_time" ;;
     esac
-    
-    esac 
+     
     case "$frequency" in
         daily)
             frequency_cron="0 $frequency_time * * *"
