@@ -63,6 +63,41 @@ ram.runtime = "50M"
     type = "password"
     optional = true
 
+    [install.default_yunohost_backup]
+    ask.en = "Would you like to backup your YunoHost backups?"
+    ask.fr = "Souhaitez-vous effectuer des sauvegardes des sauvegardes de YunoHost ?"
+    type = "boolean"
+    default = true
+
+    [install.archivist_yunohost_backup]
+    ask.en = "Would you like to backup Archivist (the Yunohost app) automated backups ? (If so, it's recommended to set a similar frequency but delayed after archivist run)"
+    ask.fr = "Souhaitez-vous effectuer des sauvegardes automatique d'Archivist (l'application Yunohost) ? (Si oui, il est recommandé de régler une fréquence similaire, mais décalée après le lancement d'Archivist)"
+    type = "boolean"
+    default = false
+
+    [install.frequency]
+    ask.en = "Choose the frequency of your backups?"
+    ask.fr = "Choississez la fréquence de votre sauvegarde ?"
+    type = "select"
+    choices.daily = "Daily"
+    choices.days_3 = "Each 3 days"
+    choices.weekly = "Weekly"
+    choices.weeks_2 = "Biweekly"
+    choices.monthly = "Monthly"
+    default = "weekly"
+
+    [install.frequency_hour]
+    ask.en = "Choose the time of the night to launch your backup"
+    ask.fr = "Choississez l'heure de la nuit de lancement de votre sauvegarde "
+    type = "select"
+    choices.midnight = "Midnight"
+    choices.2am = "2am"
+    choices.3am = "3am"
+    choices.4am = "4am"
+    choices.6am = "6am"
+    default = "3am"
+    
+
 [resources]
     # See the packaging documentation for the full set
     # of explanation regarding the behavior and properties for each of those
