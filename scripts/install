@@ -115,6 +115,7 @@ yunohost service add "$app" --description="Plakar backup app service" --log="/va
 
 # General default backup script
 ynh_config_add --template="plakar.sh" --destination="$install_dir/$app.sh" # TODO : remove, backup, restore
+chmod 700 "$install_dir/$app.sh"
 # Add Cron configuration file
 ynh_config_add --template="plakar.cron" --destination="/etc/cron.d/$app"
 
