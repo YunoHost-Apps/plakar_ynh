@@ -33,7 +33,7 @@ if ynh_hide_warnings yunohost service status $app >/dev/null; then
 	yunohost service remove $app
 fi
 
-ynh_secure_remove --file="/etc/cron.d/$app"
+ynh_safe_rm --file="/etc/cron.d/$app"
 
 ynh_config_remove_systemd
 
