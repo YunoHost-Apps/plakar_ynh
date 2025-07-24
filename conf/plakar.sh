@@ -1,1 +1,1 @@
-PLAKAR_PASSPHRASE=__ENCRYPTION_PASSPHRASE__ plakar at __DATA_DIR__ backup -tag automated-cron-backup -check 
+PLAKAR_PASSPHRASE=__ENCRYPTION_PASSPHRASE__ plakar at __DATA_DIR__ backup -tag automated-cron-backup -check /home/yunohost.backup/archives
