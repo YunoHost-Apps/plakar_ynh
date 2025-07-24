@@ -71,11 +71,11 @@ ram.runtime = "50M"
     [resources.sources]
 
         [resources.sources.main]
-        amd64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.3-devel.455ca52/plakar_1.0.3-devel.455ca52_linux_amd64.deb"
-        amd64.sha256 = "35ef1e3bc81930e668edea402c8093200c4731ba5e85eb6570d1ad3633ceeb56"
+        amd64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.3-devel.889b4b6/plakar_1.0.3-devel.889b4b6_linux_amd64.deb"
+        amd64.sha256 = "sha256:129363aaec4259f56a0392590dfe197956d50a3accc1b232f6b0515e497ff4da"
     
-        arm64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.3-devel.455ca52/plakar_1.0.3-devel.455ca52_linux_arm64.deb"
-        arm64.sha256 = "3b99a05a063ed996cc78d46bb8cdac734f4cc5dd470964d35bff8e7aa82c55c9"
+        arm64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.3-devel.889b4b6/plakar_1.0.3-devel.889b4b6_linux_arm64.deb"
+        arm64.sha256 = "sha256:2ce49b23409b328941921038167ea63eb006862c2618a7f33ded76c20fd94e66"
     
         rename = "plakar.deb"
         autoupdate.strategy = "latest_github_release"
