@@ -9,7 +9,9 @@ Group=__APP__
 
 Environment=PLAKAR_PASSPHRASE=__ENCRYPTION_PASSPHRASE__
 WorkingDirectory=__INSTALL_DIR__/
-ExecStart=/usr/bin/plakar agent && /usr/bin/plakar at __DATA_DIR__ ui -addr localhost:__PORT__ -no-spawn # FIX ME : should use __INSTALL_DIR__/plakar in the future (need local install first)
+ExecStartPre=/usr/bin/plakar agent
+ExecStart=/usr/bin/plakar at __DATA_DIR__ ui -addr localhost:__PORT__ -no-spawn
+# FIX ME : should use __INSTALL_DIR__/plakar in the future (need to work on local install first)
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 Restart=on-failure
