@@ -84,38 +84,18 @@ ynh_script_progression "Adding system configurations related to $app..."
 
 ynh_config_add_nginx
 
-### `ynh_config_add_systemd` is used to configure a systemd script for an app.
-### It can be used for apps that use sysvinit (with adaptation) or systemd.
-### Have a look at the app to be sure this app needs a systemd script.
-### `ynh_config_add_systemd` will use the file conf/systemd.service
+# Use logrotate to manage application logfile(s)
+ynh_config_add_logrotate
 
 ynh_config_add_systemd
 
-### `yunohost service add` integrates a service in YunoHost. It then gets
-### displayed in the admin interface and through the others `yunohost service` commands.
-### (N.B.: this line only makes sense if the app adds a service to the system!)
-
-### Additional options starting with 3.8:
-###
-### --needs_exposed_ports "$port" a list of ports that needs to be publicly exposed
-###                               which will then be checked by YunoHost's diagnosis system
-###                               (N.B. DO NOT USE THIS if the port is only internal!!!)
-###
-### --test_status "some command"  a custom command to check the status of the service
-###                               (only relevant if 'systemctl status' doesn't do a good job)
-###
-### --test_conf "some command"    some command similar to "nginx -t" that validates the conf of the service
-###
-### Re-calling 'yunohost service add' during the upgrade script is the right way
-### to proceed if you later realize that you need to enable some flags that
-### weren't enabled on old installs (be careful it'll override the existing
-### service though so you should re-provide all relevant flags when doing so)
-
 yunohost service add "$app" --description="Plakar backup app service" --log="/var/log/$app/$app.log"
+
 
 # General default backup script
 ynh_config_add --template="plakar.sh" --destination="$install_dir/$app.sh" # TODO : remove, backup, restore
 chmod 700 "$install_dir/$app.sh"
+
 # Add Cron configuration file
 ynh_config_add --template="plakar.cron" --destination="/etc/cron.d/$app"
 
