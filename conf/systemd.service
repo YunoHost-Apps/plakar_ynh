@@ -1,5 +1,5 @@
 [Unit]
-Description=Service for Plakar (__APP__)
+Description=Service for Plakar backup app (__APP__)
 After=network.target
 
 [Service]
