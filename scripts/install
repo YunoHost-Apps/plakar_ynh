@@ -27,8 +27,8 @@ ynh_script_progression "Adding $app's configuration files..."
 ynh_config_add --template=".env" --destination="$install_dir/.env"
 
 # General default backup script
-ynh_config_add --template="plakar.sh" --destination="$install_dir/$app.sh" # TODO : remove, backup, restore
-chmod 700 "$install_dir/$app.sh"
+ynh_config_add --template="plakar.sh" --destination="$install_dir/plakar.sh" # TODO : remove, backup, restore
+chmod 700 "$install_dir/plakar.sh"
 
 # Add Cron configuration file
 ynh_config_add --template="plakar.cron" --destination="/etc/cron.d/$app"
