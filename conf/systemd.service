@@ -1,5 +1,5 @@
 [Unit]
-Description=Plakar: backup app
+Description=Plakar: encrypted, queryable backups
 After=network.target
 
 [Service]
