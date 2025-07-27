@@ -22,9 +22,6 @@ ynh_go_install --go_version=$go_version
 #=================================================
 ynh_script_progression "Setting up source files..."
 
-### `ynh_setup_source` is used to install an app from a zip or tar.gz file,
-### downloaded from an upstream source, as defined in the manifest.toml
-
 tempdir="$(mktemp -d)"
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$tempdir"

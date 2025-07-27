@@ -21,13 +21,14 @@ userdoc = "https://docs.plakar.io/"
 code = "https://github.com/PlakarKorp/plakar"
 
 [integration]
-yunohost = '>= 11.2.30'
+yunohost = '>= 12.0.9'
 helpers_version = "2.1"
-# List of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386']
 architectures = ["amd64", "arm64"]
 multi_instance = false
+
 ldap = "not_relevant"
 sso = false
+
 disk = "50M"
 ram.build = "50M"
 ram.runtime = "50M"
@@ -35,17 +36,13 @@ ram.runtime = "50M"
 [install]
 
     [install.domain]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "domain"
 
     [install.path]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "path"
     default = "/plakar"
 
     [install.init_main_permission]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    # This won't be saved as setting and will instead be used to initialize the SSOwat permission
     type = "group"
     default = "all_users"
     
@@ -99,9 +96,6 @@ ram.runtime = "50M"
     
 
 [resources]
-    # See the packaging documentation for the full set
-    # of explanation regarding the behavior and properties for each of those
-    # https://yunohost.org/packaging_apps_resources
 
     [resources.sources]
 
@@ -117,24 +111,15 @@ ram.runtime = "50M"
         autoupdate.asset = "^webmin_.*_all.deb$"
 
     [resources.permissions]
-    # This will configure SSOwat permission for $domain/$path/
-    # The initial allowed group of user is configured via the init_main_permission question (public=visitors, private=all_users)
     main.url = "/"
 
     [resources.ports]
-    # This will pick a random port for reverse-proxying and store it as the $port setting
-    [resources.apt]
-    # This will automatically install/uninstall the following apt packages
-    # and implicitly define the $php_version setting as 8.3 (if php8.3-foobar dependencies are listed)
-    packages = "ca-certificates, golang "
 
     [resources.system_user]
-    # This will provision/deprovision a unix system user
 
     [resources.install_dir]
-    # This will create/remove the install dir as /var/www/$app
-    # and store the corresponding setting $install_dir
 
     [resources.data_dir]
-    # This will create/remove the data dir as /home/yunohost.app/$app
-    # and store the corresponding setting $data_dir
+
+    [resources.apt]
+    packages = "ca-certificates"
