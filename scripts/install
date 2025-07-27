@@ -36,14 +36,14 @@ ynh_config_add --template="plakar.cron" --destination="/etc/cron.d/$app"
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
-ynh_script_progression "Configuration $app's first backup repository in $data_dir..."
+#ynh_script_progression "Configuration $app's first backup repository in $data_dir..."
 
-if [ $encrypt = true ]
-then
-  ynh_exec_as_app PLAKAR_PASSPHRASE=$encryption_passphrase plakar at $data_dir create
-else
-  ynh_exec_as_app plakar at $data_dir create -plaintext
-fi
+#if [ $encrypt = true ]
+#then
+#  ynh_exec_as_app PLAKAR_PASSPHRASE=$encryption_passphrase plakar at $data_dir create
+#else
+#  ynh_exec_as_app plakar at $data_dir create -plaintext
+#fi
 
 #=================================================
 # SYSTEM CONFIGURATION
