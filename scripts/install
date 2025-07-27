@@ -27,16 +27,18 @@ ynh_script_progression "Adding $app's configuration files..."
 ynh_config_add --template=".env" --destination="$install_dir/.env"
 
 # General default backup script
-ynh_config_add --template="plakar.sh" --destination="$install_dir/plakar.sh" # TODO : remove, backup, restore
+ynh_config_add --template="plakar.sh" --destination="$install_dir/plakar.sh"
 chmod 700 "$install_dir/plakar.sh"
 
 # Add Cron configuration file
 ynh_config_add --template="plakar.cron" --destination="/etc/cron.d/$app"
+chown root: "/etc/cron.d/$app"
+chmod 644 "/etc/cron.d/$app"
 
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
-#ynh_script_progression "Configuration $app's first backup repository in $data_dir..."
+ynh_script_progression "Configuration $app's first backup repository in $data_dir..."
 
 if [ $encrypt = true ]
 then
@@ -58,7 +60,7 @@ ynh_config_add_logrotate
 
 ynh_config_add_systemd
 
-yunohost service add "$app" --description="Plakar backup app service" --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="Encrypted, queryable backups" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE

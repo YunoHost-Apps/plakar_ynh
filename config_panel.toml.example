@@ -1,0 +1,58 @@
+version = "1.0"
+
+[main]
+name.en = "Plakar configuration"
+name.fr = "Configuration de Plakar"
+services = ["__APP__"]
+
+    [main.backup]
+    name = "backup"
+
+        [main.backup.encrypt]
+        ask.en = "Do you want to encrypt your backups?"
+        ask.fr = "Voulez-vous chiffrer vos sauvegardes ?"
+        type = "boolean"
+        default = true
+
+        [main.backup.encryption_passphrase]
+        ask.en = "Set the password for encryption."
+        ask.fr = "Définissez le mot de passe de chiffrement."
+        help.en = "It's needed if you use backup encryption. You will need a strong enough password (or rather passphrase) for Plakar to accept it, allowing to install it."
+        help.fr = "C'est nécessaire si vous utilisez le chiffrement. Vous aurez besoin d'un mot de passe (ou plutôt d'une phrase de passe) solide pour que Plakar la valide, permettant l'installation."
+        type = "password"
+        optional = true
+
+        [main.backup.default_yunohost_backup]
+        ask.en = "Would you like to backup your YunoHost backups?"
+        ask.fr = "Souhaitez-vous effectuer des sauvegardes des sauvegardes de YunoHost ?"
+        type = "boolean"
+        default = true
+
+        [main.backup.archivist_yunohost_backup]
+        ask.en = "Would you like to backup Archivist (the Yunohost app) automated backups ? (If so, it's recommended to set a similar frequency but delayed after archivist run)"
+        ask.fr = "Souhaitez-vous effectuer des sauvegardes automatique d'Archivist (l'application Yunohost) ? (Si oui, il est recommandé de régler une fréquence similaire, mais décalée après le lancement d'Archivist)"
+        type = "boolean"
+        default = false
+
+        [main.backup.frequency]
+        ask.en = "Choose the frequency of your backups?"
+        ask.fr = "Choississez la fréquence de votre sauvegarde ?"
+        type = "select"
+        choices.daily = "Daily"
+        choices.days_3 = "Each 3 days"
+        choices.weekly = "Weekly"
+        choices.weeks_2 = "Biweekly"
+        choices.monthly = "Monthly"
+        default = "weekly"
+
+        [main.backup.frequency_hour]
+        ask.en = "Choose the time of the night to launch your backup"
+        ask.fr = "Choississez l'heure de la nuit de lancement de votre sauvegarde"
+        type = "select"
+        choices.midnight = "Midnight"
+        choices.2am = "2am"
+        choices.3am = "3am"
+        choices.4am = "4am"
+        choices.6am = "6am"
+        default = "3am"
+        
