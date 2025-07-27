@@ -1,1 +1,1 @@
-This is a dummy description of this app features
+Encrypted, queryable backups for people who value their time and data.
