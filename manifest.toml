@@ -106,7 +106,8 @@ ram.runtime = "50M"
         arm64.sha256 = "5bc84b193a7a6719e019d9805aef6f79ddb1987580f926c1cdf363a7602ede84"
 
         autoupdate.strategy = "latest_github_release"
-        autoupdate.asset = "^webmin_.*_all.deb$"
+        autoupdate.asset.amd64 = "^*_linux_amd64.tar.gz"
+        autoupdate.asset.arm64 = "^*_linux_amd64.tar.gz"
 
     [resources.permissions]
     main.url = "/"
