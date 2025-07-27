@@ -1,16 +1,15 @@
 [Unit]
-Description=Service for Plakar backup app (__APP__)
+Description=Plakar: backup app
 After=network.target
 
 [Service]
 Type=simple
 User=__APP__
 Group=__APP__
-
-Environment=PLAKAR_PASSPHRASE=__ENCRYPTION_PASSPHRASE__
+EnvironmentFile=__INSTALL_DIR__/.env
 WorkingDirectory=__INSTALL_DIR__/
 ExecStartPre=/usr/bin/plakar agent -log /var/log/__APP__/__APP__.log
-ExecStart=/usr/bin/plakar at __DATA_DIR__ ui -addr localhost:__PORT__ -no-spawn
+ExecStart=/usr/bin/plakar at __DATA_DIR__ ui -addr 127.0.0.1:__PORT__ -no-spawn
 # FIX ME : should use __INSTALL_DIR__/plakar in the future (need to work on local install first)
 ExecStop=/usr/bin/plakar agent stop
 StandardOutput=append:/var/log/__APP__/__APP__.log

@@ -10,25 +10,6 @@ source /usr/share/yunohost/helpers
 
 _set_frequencies
 
-### Install parameters are automatically saved as settings
-###
-### Settings are automatically loaded as bash variables
-### in every app script context, therefore typically these will exist:
-### - $domain
-### - $path
-### - $language
-### ... etc
-###
-### Resources defined in the manifest are provisioned prior to this script
-### and corresponding settings are also available, such as:
-### - $install_dir
-### - $port
-### - $db_name
-### ...
-###
-### $app is the app id (i.e. 'example' for first install,
-### or 'example__2', '__3'... for multi-instance installs)
-
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
@@ -65,8 +46,14 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
-ynh_script_progression "Configuration $app's first backup repository in $data_dir..."
+ynh_script_progression "Adding $app's configuration files..."
 
+ynh_config_add --template=".env" --destination="$install_dir/.env"
+
+#=================================================
+# APP INITIAL CONFIGURATION
+#=================================================
+ynh_script_progression "Configuration $app's first backup repository in $data_dir..."
 
 if [ $encrypt = true ]
 then
@@ -81,7 +68,6 @@ fi
 ynh_script_progression "Adding system configurations related to $app..."
 
 # Create a dedicated NGINX config using the conf/nginx.conf template
-
 ynh_config_add_nginx
 
 # Use logrotate to manage application logfile(s)
@@ -115,14 +101,6 @@ ynh_script_progression "Installing $app..."
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Starting app's systemd service..."
-
-### `ynh_systemctl` is used to start a systemd service for an app.
-### Only needed if you have configure a systemd service
-### If you're not using these lines:
-###   - Remove the section "STOP SYSTEMD SERVICE" and "START SYSTEMD SERVICE" in the backup script
-###   - As well as the section "START SYSTEMD SERVICE" in the restore script
-###   - As well as the section"STOP SYSTEMD SERVICE" and "START SYSTEMD SERVICE" in the upgrade script
-###   - And the section "STOP SYSTEMD SERVICE" and "START SYSTEMD SERVICE" in the change_url script
 
 ynh_systemctl --service="$app" --action="start"
 
