@@ -4,13 +4,6 @@
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-go_version="1.23.3"
-
-
-#=================================================
-# PERSONAL HELPERS
-#=================================================
-
 _set_frequencies() {
 
     case $frequency_hour in
