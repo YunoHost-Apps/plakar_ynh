@@ -30,7 +30,7 @@ ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
 
 ynh_backup "/etc/systemd/system/$app.service"
 
-ynh_backup --src_path="/etc/cron.d/$app"
+ynh_backup "/etc/cron.d/$app"
 
 #=================================================
 # BACKUP VARIOUS FILES
