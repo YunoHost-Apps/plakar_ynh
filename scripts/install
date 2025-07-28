@@ -38,7 +38,7 @@ chmod 644 "/etc/cron.d/$app"
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
-ynh_script_progression "Configuration $app's first backup repository in $data_dir..."
+ynh_script_progression "Configuring $app's first backup repository in $data_dir..."
 
 if [ $encrypt = true ]
 then
