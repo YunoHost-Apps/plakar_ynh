@@ -23,8 +23,8 @@ services = ["__APP__"]
         optional = true
 
         [main.backup.default_yunohost_backup]
-        ask.en = "Would you like to backup your YunoHost backups?"
-        ask.fr = "Souhaitez-vous effectuer des sauvegardes des sauvegardes de YunoHost ?"
+        ask.en = "Would you like to backup your YunoHost internal backups?"
+        ask.fr = "Souhaitez-vous effectuer des copies des sauvegardes internes de YunoHost ?"
         type = "boolean"
         default = true
 
