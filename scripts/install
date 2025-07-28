@@ -1,78 +1,59 @@
 #!/bin/bash
-### App file generated with YoloGen, the Yunohost app generator, version .
-
-# This is the tutorial version of the app.
-# It contains extra commands to explain what should be done in case you want to adjust some part of the script.
-# Once you are done, you may remove them.
 
 source _common.sh
 source /usr/share/yunohost/helpers
 
+#=================================================
+# INITIALIZE AND STORE SETTINGS
+#=================================================
+
 _set_frequencies
-
-### Install parameters are automatically saved as settings
-###
-### Settings are automatically loaded as bash variables
-### in every app script context, therefore typically these will exist:
-### - $domain
-### - $path
-### - $language
-### ... etc
-###
-### Resources defined in the manifest are provisioned prior to this script
-### and corresponding settings are also available, such as:
-### - $install_dir
-### - $port
-### - $db_name
-### ...
-###
-### $app is the app id (i.e. 'example' for first install,
-### or 'example__2', '__3'... for multi-instance installs)
-
-#=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression "Installing dependencies... This make take a while."
-
-ynh_go_install --go_version=$go_version
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Setting up source files..."
 
-### `ynh_setup_source` is used to install an app from a zip or tar.gz file,
-### downloaded from an upstream source, as defined in the manifest.toml
+# Download, check integrity, uncompress and patch the source from manifest.toml
+ynh_setup_source --dest_dir="$install_dir"
 
-tempdir="$(mktemp -d)"
-# Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$tempdir"
+chmod +x "$install_dir/plakar"
 
-dpkg --install $tempdir/plakar.deb
+#=================================================
+# HANDLE LOG FILES AND LOGROTATE
+#=================================================
+ynh_script_progression "Configuring log rotation..."
 
-ynh_safe_rm "$tempdir"
-
-#ynh_setup_source --dest_dir="$install_dir"
-
-# $install_dir will automatically be initialized with some decent
-# permission by default ... however, you may need to recursively reapply
-# ownership to all files such as after the ynh_setup_source step
-
-chown -R $app:www-data "$install_dir"
-
-#ynh_replace --match="1.23.3" --replace="1.23" --file="$install_dir/go.mod"
+# Create log directory
+mkdir -p /var/log/$app
+touch /var/log/$app/$app.log
+chown $app -R /var/log/$app
 
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
-ynh_script_progression "Configuration $app's first backup repository in $data_dir..."
+ynh_script_progression "Adding $app's configuration files..."
 
+ynh_config_add --template=".env" --destination="$install_dir/.env"
+
+# General default backup script
+ynh_config_add --template="plakar.sh" --destination="$install_dir/plakar.sh"
+chmod 700 "$install_dir/plakar.sh"
+
+#=================================================
+# APP INITIAL CONFIGURATION
+#=================================================
+ynh_script_progression "Configuring $app's first backup repository in $data_dir..."
 
 if [ $encrypt = true ]
 then
-  ynh_exec_as_app PLAKAR_PASSPHRASE=$encryption_passphrase plakar at $data_dir create
+  ynh_exec_as_app PLAKAR_PASSPHRASE=$encryption_passphrase $install_dir/plakar at $data_dir create
 else
-  ynh_exec_as_app plakar at $data_dir create -plaintext
+  ynh_exec_as_app $install_dir/plakar at $data_dir create -plaintext
+  if ! [ -z $encryption_passphrase ]
+  then
+    encryption_passphrase='none'
+  fi
 fi
 
 #=================================================
@@ -81,49 +62,24 @@ fi
 ynh_script_progression "Adding system configurations related to $app..."
 
 # Create a dedicated NGINX config using the conf/nginx.conf template
-
 ynh_config_add_nginx
 
 # Use logrotate to manage application logfile(s)
-ynh_config_add_logrotate$
-touch /var/log/$app/$app.log #FIXME
-chown plakar:plakar /var/log/$app/$app.log
+ynh_config_add_logrotate
 
 ynh_config_add_systemd
 
-yunohost service add "$app" --description="Plakar backup app service" --log="/var/log/$app/$app.log"
-
-
-# General default backup script
-ynh_config_add --template="plakar.sh" --destination="$install_dir/$app.sh" # TODO : remove, backup, restore
-chmod 700 "$install_dir/$app.sh"
+yunohost service add "$app" --description="Encrypted, queryable backups" --log="/var/log/$app/$app.log"
 
 # Add Cron configuration file
 ynh_config_add --template="plakar.cron" --destination="/etc/cron.d/$app"
-
-#=================================================
-# INSTALL APP
-#=================================================
-ynh_script_progression "Installing $app..."
-
-#pushd "$install_dir/"
-#  ynh_exec_as_app echo go version
-#  ynh_exec_as_app CGO_ENABLED=0 go install $install_dir/
-#  #ynh_exec_as_app CGO_ENABLED=0 go install github.com/PlakarKorp/plakar@latest
-#popd
+chown root: "/etc/cron.d/$app"
+chmod 644 "/etc/cron.d/$app"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Starting app's systemd service..."
-
-### `ynh_systemctl` is used to start a systemd service for an app.
-### Only needed if you have configure a systemd service
-### If you're not using these lines:
-###   - Remove the section "STOP SYSTEMD SERVICE" and "START SYSTEMD SERVICE" in the backup script
-###   - As well as the section "START SYSTEMD SERVICE" in the restore script
-###   - As well as the section"STOP SYSTEMD SERVICE" and "START SYSTEMD SERVICE" in the upgrade script
-###   - And the section "STOP SYSTEMD SERVICE" and "START SYSTEMD SERVICE" in the change_url script
 
 ynh_systemctl --service="$app" --action="start"
 

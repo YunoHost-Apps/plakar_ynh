@@ -4,13 +4,6 @@
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-go_version="1.23.3"
-
-
-#=================================================
-# PERSONAL HELPERS
-#=================================================
-
 _set_frequencies() {
 
     case $frequency_hour in
@@ -43,7 +36,7 @@ _set_frequencies() {
             frequency_human="once a month on the first sunday at $frequency_time am"
             ;;
         *)
-            ynh_die --message="Unsupported frequency $frequency" ;;
+            ynh_die "Unsupported frequency $frequency" ;;
     esac
 
     # For POST_INSTALL.md
