@@ -51,6 +51,7 @@ then
 else
   ynh_exec_as_app $install_dir/plakar at $data_dir create -plaintext
   if not [ -z $encryption_passphrase ]
+  then
     encryption_passphrase='none'
   fi
 fi
