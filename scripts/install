@@ -20,6 +20,16 @@ ynh_setup_source --dest_dir="$install_dir"
 chmod +x "$install_dir/plakar"
 
 #=================================================
+# HANDLE LOG FILES AND LOGROTATE
+#=================================================
+ynh_script_progression "Configuring log rotation..."
+
+# Create log directory
+mkdir -p /var/log/$app
+touch /var/log/$app/$app.log
+chown $app -R /var/log/$app
+
+#=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
 ynh_script_progression "Adding $app's configuration files..."
