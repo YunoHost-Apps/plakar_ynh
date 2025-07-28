@@ -1,1 +1,1 @@
-__FREQUENCY_CRON__ __APP__ nice -n10 __INSTALL_DIR__/plakar.sh | tee -a /var/log/__APP__/__APP__.log 2>&1
+. __INSTALL_DIR__/.env && __FREQUENCY_CRON__ __APP__ nice -n10 __INSTALL_DIR__/plakar.sh | tee -a /var/log/__APP__/__APP__.log 2>&1
