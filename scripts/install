@@ -85,7 +85,8 @@ ynh_script_progression "Adding system configurations related to $app..."
 ynh_config_add_nginx
 
 # Use logrotate to manage application logfile(s)
-ynh_config_add_logrotate
+ynh_config_add_logrotate$
+touch /var/log/$app/$app.log #FIXME
 chown plakar:plakar /var/log/$app/$app.log
 
 ynh_config_add_systemd
