@@ -67,8 +67,8 @@ ram.runtime = "50M"
     default = true
 
     [install.archivist_yunohost_backup]
-    ask.en = "Would you like to backup Archivist (the Yunohost app) automated backups ? (If so, it's recommended to set a similar frequency but delayed after archivist run)"
-    ask.fr = "Souhaitez-vous effectuer des sauvegardes automatique d'Archivist (l'application Yunohost) ? (Si oui, il est recommandé de régler une fréquence similaire, mais décalée après le lancement d'Archivist)"
+    ask.en = "Would you like to backup Archivist (the YunoHost app) automated backups? (If so, it's recommended to set a similar frequency but delayed after archivist run)"
+    ask.fr = "Souhaitez-vous effectuer des sauvegardes automatique d'Archivist (l'application YunoHost) ? (Si oui, il est recommandé de régler une fréquence similaire, mais décalée après le lancement d'Archivist)"
     type = "boolean"
     default = false
 
@@ -85,7 +85,7 @@ ram.runtime = "50M"
 
     [install.frequency_hour]
     ask.en = "Choose the time of the night to launch your backup"
-    ask.fr = "Choississez l'heure de la nuit de lancement de votre sauvegarde "
+    ask.fr = "Choississez l'heure de la nuit de lancement de votre sauvegarde"
     type = "select"
     choices.midnight = "Midnight"
     choices.2am = "2am"
