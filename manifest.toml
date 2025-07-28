@@ -5,15 +5,15 @@ packaging_format = 2
 id = "plakar"
 name = "Plakar"
 
-description.en = "Backup solution powered by Kloset and ptar"
-description.fr = "Backup solution powered by Kloset and ptar"
+description.en = "Encrypted, queryable backups"
+description.fr = "Sauvegardes cryptées et interrogeables"
 
-version = "1.0.2~ynh1"
+version = "1.0.3~ynh1"
 
 maintainers = ["Lapineige"]
 
 [upstream]
-license = "OpenBSD"
+license = "ISC"
 website = "https://plakar.io/"
 demo = "https://demo.plakar.io/"
 admindoc = "https://docs.plakar.io/"
@@ -21,13 +21,14 @@ userdoc = "https://docs.plakar.io/"
 code = "https://github.com/PlakarKorp/plakar"
 
 [integration]
-yunohost = '>= 11.2.30'
+yunohost = '>= 12.0.9'
 helpers_version = "2.1"
-# List of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386']
-architectures = "all"
+architectures = ["amd64", "arm64"]
 multi_instance = false
+
 ldap = "not_relevant"
-sso = "false"
+sso = false
+
 disk = "50M"
 ram.build = "50M"
 ram.runtime = "50M"
@@ -35,41 +36,90 @@ ram.runtime = "50M"
 [install]
 
     [install.domain]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "domain"
 
     [install.path]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "path"
     default = "/plakar"
 
     [install.init_main_permission]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    # This won't be saved as setting and will instead be used to initialize the SSOwat permission
     type = "group"
     default = "all_users"
+    
+    [install.encrypt]
+    ask.en = "Do you want to encrypt your backups?"
+    ask.fr = "Voulez-vous chiffrer vos sauvegardes ?"
+    type = "boolean"
+    default = true
 
+    [install.encryption_passphrase]
+    ask.en = "Set the password for encryption."
+    ask.fr = "Définissez le mot de passe de chiffrement."
+    help.en = "It's needed if you use backup encryption. You will need a strong enough password (or rather passphrase) for Plakar to accept it, allowing to install it."
+    help.fr = "C'est nécessaire si vous utilisez le chiffrement. Vous aurez besoin d'un mot de passe (ou plutôt d'une phrase de passe) solide pour que Plakar la valide, permettant l'installation."
+    type = "password"
+    optional = true
+
+    [install.default_yunohost_backup]
+    ask.en = "Would you like to backup your YunoHost backups?"
+    ask.fr = "Souhaitez-vous effectuer des sauvegardes des sauvegardes de YunoHost ?"
+    type = "boolean"
+    default = true
+
+    [install.archivist_yunohost_backup]
+    ask.en = "Would you like to backup Archivist (the YunoHost app) automated backups? (If so, it's recommended to set a similar frequency but delayed after archivist run)"
+    ask.fr = "Souhaitez-vous effectuer des sauvegardes automatique d'Archivist (l'application YunoHost) ? (Si oui, il est recommandé de régler une fréquence similaire, mais décalée après le lancement d'Archivist)"
+    type = "boolean"
+    default = false
+
+    [install.frequency]
+    ask.en = "Choose the frequency of your backups?"
+    ask.fr = "Choississez la fréquence de votre sauvegarde ?"
+    type = "select"
+    choices.daily = "Daily"
+    choices.days_3 = "Each 3 days"
+    choices.weekly = "Weekly"
+    choices.weeks_2 = "Biweekly"
+    choices.monthly = "Monthly"
+    default = "weekly"
+
+    [install.frequency_hour]
+    ask.en = "Choose the time of the night to launch your backup"
+    ask.fr = "Choississez l'heure de la nuit de lancement de votre sauvegarde"
+    type = "select"
+    choices.midnight = "Midnight"
+    choices.2am = "2am"
+    choices.3am = "3am"
+    choices.4am = "4am"
+    choices.6am = "6am"
+    default = "3am"
+    
 [resources]
-    # See the packaging documentation for the full set
-    # of explanation regarding the behavior and properties for each of those
-    # https://yunohost.org/packaging_apps_resources
 
     [resources.sources]
 
         [resources.sources.main]
-        url = "https://github.com/PlakarKorp/plakar"
-        sha256 = "4b5ae950daece28a6490273b5563fc1649d683cfd481ef86931ee83a4b02dabb"
+        in_subdir = false
+        extract = true
+        amd64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.3-devel.889b4b6/plakar_1.0.3-devel.889b4b6_linux_amd64.tar.gz"
+        amd64.sha256 = "260983886a616253559eb4eba4128a107a0eb6d31b9bfa4b617850fc41976c95"
+        arm64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.3-devel.889b4b6/plakar_1.0.3-devel.889b4b6_linux_arm64.tar.gz"
+        arm64.sha256 = "5bc84b193a7a6719e019d9805aef6f79ddb1987580f926c1cdf363a7602ede84"
 
         autoupdate.strategy = "latest_github_release"
+        autoupdate.asset.amd64 = "^*_linux_amd64.tar.gz"
+        autoupdate.asset.arm64 = "^*_linux_amd64.tar.gz"
 
     [resources.permissions]
-    # This will configure SSOwat permission for $domain/$path/
-    # The initial allowed group of user is configured via the init_main_permission question (public=visitors, private=all_users)
     main.url = "/"
 
     [resources.ports]
-    # This will pick a random port for reverse-proxying and store it as the $port setting
+
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.data_dir]
+
     [resources.apt]
-    # This will automatically install/uninstall the following apt packages
-    # and implicitly define the $php_version setting as 8.3 (if php8.3-foobar dependencies are listed)
-    packages = "ca-certificates, golang "
+    packages = "ca-certificates"
