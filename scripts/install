@@ -30,11 +30,6 @@ ynh_config_add --template=".env" --destination="$install_dir/.env"
 ynh_config_add --template="plakar.sh" --destination="$install_dir/plakar.sh"
 chmod 700 "$install_dir/plakar.sh"
 
-# Add Cron configuration file
-ynh_config_add --template="plakar.cron" --destination="/etc/cron.d/$app"
-chown root: "/etc/cron.d/$app"
-chmod 644 "/etc/cron.d/$app"
-
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
@@ -61,6 +56,11 @@ ynh_config_add_logrotate
 ynh_config_add_systemd
 
 yunohost service add "$app" --description="Encrypted, queryable backups" --log="/var/log/$app/$app.log"
+
+# Add Cron configuration file
+ynh_config_add --template="plakar.cron" --destination="/etc/cron.d/$app"
+chown root: "/etc/cron.d/$app"
+chmod 644 "/etc/cron.d/$app"
 
 #=================================================
 # START SYSTEMD SERVICE
