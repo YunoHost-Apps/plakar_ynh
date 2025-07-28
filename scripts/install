@@ -52,7 +52,6 @@ ynh_config_add_nginx
 
 # Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
-chown $app:$app /var/log/$app/$app.log
 
 ynh_config_add_systemd
 
