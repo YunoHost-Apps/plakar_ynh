@@ -92,7 +92,7 @@ ram.runtime = "50M"
     choices.at3am = "3am"
     choices.at4am = "4am"
     choices.at6am = "6am"
-    default = "3am"
+    default = "at3am"
     
 [resources]
 
