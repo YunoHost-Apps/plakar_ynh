@@ -54,5 +54,5 @@ services = ["__APP__"]
         choices.at3am = "3am"
         choices.at4am = "4am"
         choices.at6am = "6am"
-        default = "at3am"
+        default = "3am"
         
