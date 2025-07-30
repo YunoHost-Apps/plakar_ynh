@@ -7,11 +7,11 @@
 _set_frequencies() {
 
     case $frequency_hour in
-      "Midnight")          frequency_time="0" ; ynh_app_setting_set --app="$app" --key="frequency_hour" --value="$frequency_hour" ;;
-      "2am")               frequency_time="2" ; ynh_app_setting_set --app="$app" --key="frequency_hour" --value="$frequency_hour" ;;
-      "3am")               frequency_time="3" ; ynh_app_setting_set --app="$app" --key="frequency_hour" --value="$frequency_hour" ;;
-      "4am")               frequency_time="4" ; ynh_app_setting_set --app="$app" --key="frequency_hour" --value="$frequency_hour" ;;
-      "6am")               frequency_time="6" ; ynh_app_setting_set --app="$app" --key="frequency_hour" --value="$frequency_hour" ;;
+      "Midnight")          frequency_hour="0" ; ynh_app_setting_set --app="$app" --key="frequency_hour" --value="$frequency_hour" ;;
+      "2am")               frequency_hour="2" ; ynh_app_setting_set --app="$app" --key="frequency_hour" --value="$frequency_hour" ;;
+      "3am")               frequency_hour="3" ; ynh_app_setting_set --app="$app" --key="frequency_hour" --value="$frequency_hour" ;;
+      "4am")               frequency_hour="4" ; ynh_app_setting_set --app="$app" --key="frequency_hour" --value="$frequency_hour" ;;
+      "6am")               frequency_hour="6" ; ynh_app_setting_set --app="$app" --key="frequency_hour" --value="$frequency_hour" ;;
     esac
      
     case "$frequency" in
