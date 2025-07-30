@@ -16,23 +16,23 @@ _set_frequencies() {
      
     case "$frequency" in
         daily)
-            frequency_cron="0 $frequency_time * * *"
+            frequency_cron="0 $frequency_hour * * *"
             frequency_human="every day at $frequency_hour am"
             ;;
         days_3)
-            frequency_cron="0 $frequency_time */3 * *"
+            frequency_cron="0 $frequency_hour */3 * *"
             frequency_human="each 3 days at $frequency_hour am"
             ;;
         weekly)
-            frequency_cron="0 $frequency_time * * 0"
+            frequency_cron="0 $frequency_hour * * 0"
             frequency_human="once a week on sunday at $frequency_hour am"
             ;;
         weeks_2)
-            frequency_cron="0 $frequency_time * * 0/2"
+            frequency_cron="0 $frequency_hour * * 0/2"
             frequency_human="one sunday out of two at $frequency_hour am"
             ;;
         monthly)
-            frequency_cron="0 $frequency_time 1 * *"
+            frequency_cron="0 $frequency_hour 1 * *"
             frequency_human="once a month on the first sunday at $frequency_hour am"
             ;;
         *)
