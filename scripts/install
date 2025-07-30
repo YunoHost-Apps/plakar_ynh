@@ -55,6 +55,7 @@ else
     encryption_passphrase='none'
   fi
 fi
+ynh_app_setting_set --key=encryption_passphrase --value="$encryption_passphrase"
 
 #=================================================
 # SYSTEM CONFIGURATION
