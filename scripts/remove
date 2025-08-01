@@ -24,8 +24,8 @@ ynh_safe_rm "/etc/cron.d/$app"
 
 if ynh_in_ci_tests
 then
-	ynh_script_progression "Removing $install_dir data directory [CI only]..."
-	ynh_safe_rm $install_dir
+	ynh_script_progression "Removing $data_dir data directory [CI only]..."
+	ynh_safe_rm $data_dir
 fi
 
 #=================================================
