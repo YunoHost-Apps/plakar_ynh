@@ -106,7 +106,7 @@ ram.runtime = "50M"
         arm64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.3-devel.d5a3fd0/plakar_1.0.3-devel.d5a3fd0_linux_arm64.tar.gz"
         arm64.sha256 = "a41d3dde35acd500d95a382dfd9da031a21016f555a344f60ad32f94f9e7fc65"
 
-        autoupdate.strategy = "latest_github_release"
+        autoupdate.strategy = "latest_github_tag"
         autoupdate.asset.amd64 = "^*_linux_amd64.tar.gz"
         autoupdate.asset.arm64 = "^*_linux_amd64.tar.gz"
 
