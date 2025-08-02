@@ -27,6 +27,9 @@ yunohost service add "$app" --description="Encrypted, queryable backups" --log="
 #=================================================
 
 ynh_restore "/var/log/$app/"
+# Make sure plakar can edit its log
+touch /var/log/$app/$app.log
+chown $app -R /var/log/$app
 
 ynh_restore "/etc/cron.d/$app"
 
