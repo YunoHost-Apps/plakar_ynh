@@ -22,6 +22,12 @@ ynh_config_remove_nginx
 # Remove other various files specific to the app... such as:
 ynh_safe_rm "/etc/cron.d/$app"
 
+if ynh_in_ci_tests
+then
+	ynh_script_progression "Removing $data_dir data directory [CI only]..."
+	ynh_safe_rm $data_dir
+fi
+
 #=================================================
 # END OF SCRIPT
 #=================================================
