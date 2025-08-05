@@ -9,6 +9,22 @@ source /usr/share/yunohost/helpers
 ynh_script_progression "Restoring the app main directory..."
 
 ynh_restore "$install_dir"
+ynh_restore "$data_dir"
+
+if ynh_in_ci_tests
+then
+	ynh_safe_rm $data_dir #Empty directory, but keep permissions
+	mkdir $data_dir
+	chown $app:$app $data_dir
+	ynh_script_progression "Creating a repository again in $data_dir data directory [CI only]..."
+	if [ $encrypt = true ]
+	    then
+	      ynh_exec_as_app PLAKAR_PASSPHRASE=$encryption_passphrase $install_dir/plakar at $data_dir create
+	    else
+	      ynh_exec_as_app $install_dir/plakar at $data_dir create -plaintext
+	    fi
+fi
+
 
 #=================================================
 # RESTORE SYSTEM CONFIGURATIONS
