@@ -8,7 +8,7 @@ name = "Plakar"
 description.en = "Encrypted, queryable backups"
 description.fr = "Sauvegardes cryptées et interrogeables"
 
-version = "1.0.3~ynh5"
+version = "1.0.3~ynh6"
 
 maintainers = ["Lapineige"]
 
@@ -115,7 +115,10 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.ports]
-
+    
+    plakar_server.default = 9876
+    plakar_server.exposed = "TCP"
+    
     [resources.system_user]
 
     [resources.install_dir]
