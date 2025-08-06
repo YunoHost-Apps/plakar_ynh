@@ -8,7 +8,7 @@ name = "Plakar"
 description.en = "Encrypted, queryable backups"
 description.fr = "Sauvegardes cryptées et interrogeables"
 
-version = "1.0.3~ynh4"
+version = "1.0.3~ynh5"
 
 maintainers = ["Lapineige"]
 
