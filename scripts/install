@@ -71,11 +71,10 @@ ynh_config_add_logrotate
 # SystemD services
 # Main service
 ynh_config_add_systemd --service="${app}_main_agent_and_webUI" --template="systemd.service"
-yunohost service add "$app" --description="Encrypted, queryable backups - agent and WebUI" --log="/var/log/$app/$app.log"
+yunohost service add "$app_main_agent_and_webUI" --description="Encrypted, queryable backups - agent and WebUI" --log="/var/log/$app/$app.log"
 # Remote server exposure
 ynh_config_add_systemd --service="${app}_remote_server" --template="remote_server.service"
-yunohost service add "$app" --description="Encrypted, queryable backups - remote backup server" --log="/var/log/$app/$app.log"
-
+yunohost service add "$app_remote_server" --description="Encrypted, queryable backups - remote backup server" --log="/var/log/$app/$app.log"
 
 # Add Cron configuration file
 if [default_yunohost_backup = true]
