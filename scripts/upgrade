@@ -29,7 +29,8 @@ ynh_config_add_nginx
 
 ynh_config_add_systemd
 
-yunohost service add "$app" --description="Encrypted, queryable backups" --log="/var/log/$app/$app.log"
+yunohost service add $app_main_agent_and_webUI --description=Encrypted, queryable backups - agent and WebUI --log=/var/log/$app/$app.log
+yunohost service add $app_remote_server --description=Encrypted, queryable backups - remote backup server --log=/var/log/$app/$app.log 
 
 #=================================================
 # START SYSTEMD SERVICE
