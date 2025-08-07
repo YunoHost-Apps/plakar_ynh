@@ -75,17 +75,17 @@ yunohost service add "$app" --description="Encrypted, queryable backups" --log="
 # Add Cron configuration file
 if [ $default_yunohost_backup = true ]
 then
-  ynh_config_add --template="plakar_ynh_backups.cron" --destination="/etc/cron.d/$app_ynh_backups"
-  chown root: "/etc/cron.d/$app_ynh_backups"
-  chmod 644 "/etc/cron.d/$app_ynh_backups"
+  ynh_config_add --template="plakar_ynh_backups.cron" --destination="/etc/cron.d/${app}_ynh_backups"
+  chown root: "/etc/cron.d/${app}_ynh_backups"
+  chmod 644 "/etc/cron.d/${app}_ynh_backups"
   ynh_script_progression "Plakar is now configured to save your Yunohost backups on the defined regular rythm..."
 fi
 
 if [ $archivist_yunohost_backup = true ]
 then
-  ynh_config_add --template="plakar_archivist_backups.cron" --destination="/etc/cron.d/$app_archivist_backups"
-  chown root: "/etc/cron.d/$app_archivist_backups"
-  chmod 644 "/etc/cron.d/$app_archivist_backups"
+  ynh_config_add --template="plakar_archivist_backups.cron" --destination="/etc/cron.d/${app}_archivist_backups"
+  chown root: "/etc/cron.d/${app}_archivist_backups"
+  chmod 644 "/etc/cron.d/${app}_archivist_backups"
   ynh_script_progression "Plakar is now configured to save your backups made with Archivist on the defined regular rythm..."
 fi
 
