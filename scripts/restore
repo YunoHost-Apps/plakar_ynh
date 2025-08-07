@@ -34,12 +34,12 @@ ynh_script_progression "Restoring system configurations related to $app..."
 ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
 ynh_restore "/etc/systemd/system/$app_main_agent_and_webUI.service"
-systemctl enable "$app_main_agent_and_webUI.service" --quiet
+systemctl enable "${app}_main_agent_and_webUI.service" --quiet
 ynh_restore "/etc/systemd/system/$app_remote_server.service"
-systemctl enable "$app_remote_server.service" --quiet
+systemctl enable "${app}_remote_server.service" --quiet
 
-yunohost service add "$app_main_agent_and_webUI" --description="Encrypted, queryable backups - agent and WebUI" --log="/var/log/$app/$app.log"
-yunohost service add "$app_remote_server" --description="Encrypted, queryable backups - remote backup server" --log="/var/log/$app/$app.log"
+yunohost service add "${app}_main_agent_and_webUI" --description="Encrypted, queryable backups - agent and WebUI" --log="/var/log/$app/$app.log"
+yunohost service add "${app}_remote_server" --description="Encrypted, queryable backups - remote backup server" --log="/var/log/$app/$app.log"
 
 #=================================================
 # RESTORE VARIOUS FILES
