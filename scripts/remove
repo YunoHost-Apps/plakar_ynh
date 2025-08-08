@@ -11,10 +11,13 @@ ynh_script_progression "Removing system configurations related to $app..."
 ynh_config_remove_logrotate
 
 # Remove the service from the list of services known by YunoHost (added from `yunohost service add`)
-if ynh_hide_warnings yunohost service status $app >/dev/null; then
+if ynh_hide_warnings yunohost service status "${app}_main_agent_and_webUI" >/dev/null; then
 	yunohost service remove "${app}_main_agent_and_webUI"
+fi
+if ynh_hide_warnings yunohost service status "${app}_remote_server" >/dev/null; then
 	yunohost service remove "${app}_remote_server"
 fi
+
 
 ynh_config_remove_systemd
 
