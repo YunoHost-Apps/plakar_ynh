@@ -37,8 +37,8 @@ ynh_script_progression "Adding $app's configuration files..."
 ynh_config_add --template=".env" --destination="$install_dir/.env"
 
 # General default backup script
-ynh_config_add --template="plakar.sh" --destination="$install_dir/plakar.sh"
-chmod 700 "$install_dir/plakar.sh"
+ynh_config_add --template="plakar_ynh_backups.sh" --destination="$install_dir/plakar_ynh_backups.sh"
+chmod 700 "$install_dir/plakar_ynh_backups.sh"
 
 #=================================================
 # APP INITIAL CONFIGURATION
@@ -73,9 +73,22 @@ ynh_config_add_systemd
 yunohost service add "$app" --description="Encrypted, queryable backups" --log="/var/log/$app/$app.log"
 
 # Add Cron configuration file
-ynh_config_add --template="plakar.cron" --destination="/etc/cron.d/$app"
-chown root: "/etc/cron.d/$app"
-chmod 644 "/etc/cron.d/$app"
+if [ $default_yunohost_backup = true ]
+then
+  ynh_config_add --template="plakar_ynh_backups.cron" --destination="/etc/cron.d/${app}_ynh_backups"
+  chown root: "/etc/cron.d/${app}_ynh_backups"
+  chmod 644 "/etc/cron.d/${app}_ynh_backups"
+  ynh_script_progression "Plakar is now configured to save your Yunohost backups on the defined regular rythm..."
+fi
+
+if [ $archivist_yunohost_backup = true ]
+then
+  ynh_config_add --template="plakar_archivist_backups.cron" --destination="/etc/cron.d/${app}_archivist_backups"
+  chown root: "/etc/cron.d/${app}_archivist_backups"
+  chmod 644 "/etc/cron.d/${app}_archivist_backups"
+  ynh_script_progression "Plakar is now configured to save your backups made with Archivist on the defined regular rythm..."
+fi
+
 
 #=================================================
 # START SYSTEMD SERVICE
