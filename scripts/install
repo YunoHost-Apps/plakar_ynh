@@ -99,7 +99,7 @@ fi
 #=================================================
 ynh_script_progression "Starting app's systemd service..."
 
-ynh_systemctl --service="$app" --action="start"
+ynh_systemctl --service="${app}_main_agent_and_webUI" --action="start"
 
 #=================================================
 # END OF SCRIPT
