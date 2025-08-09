@@ -18,7 +18,8 @@ if ynh_hide_warnings yunohost service status "${app}_remote_server" >/dev/null; 
 	yunohost service remove "${app}_remote_server"
 fi
 
-ynh_config_remove_systemd
+ynh_config_remove_systemd "${app}_main_agent_and_webUI"
+ynh_config_remove_systemd "${app}_remote_server"
 
 ynh_config_remove_nginx
 
