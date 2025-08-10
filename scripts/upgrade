@@ -8,8 +8,8 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Stopping systemd services..."
 
-ynh_systemctl --service="$app_main_agent_and_webUI" --action="stop"
-ynh_systemctl --service="$app_remote_server" --action="stop"
+ynh_systemctl --service="${app}_main_agent_and_webUI" --action="stop"
+ynh_systemctl --service="${app}_remote_server" --action="stop"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
