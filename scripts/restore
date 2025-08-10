@@ -33,9 +33,9 @@ ynh_script_progression "Restoring system configurations related to $app..."
 
 ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
-ynh_restore "/etc/systemd/system/$app_main_agent_and_webUI.service"
+ynh_restore "/etc/systemd/system/${app}_main_agent_and_webUI.service"
 systemctl enable "${app}_main_agent_and_webUI.service" --quiet
-ynh_restore "/etc/systemd/system/$app_remote_server.service"
+ynh_restore "/etc/systemd/system/${app}_remote_server.service"
 systemctl enable "${app}_remote_server.service" --quiet
 
 yunohost service add "${app}_main_agent_and_webUI" --description="Encrypted, queryable backups - agent and WebUI" --log="/var/log/$app/$app.log"
@@ -50,14 +50,24 @@ ynh_restore "/var/log/$app/"
 touch /var/log/$app/$app.log
 chown $app -R /var/log/$app
 
-ynh_restore "/etc/cron.d/$app"
+# Restore Cron configuration file
+if [ $default_yunohost_backup = 1 ]
+then
+  ynh_restore "/etc/cron.d/${app}_ynh_backups"
+fi
+
+if [ $archivist_yunohost_backup = 1 ]
+then
+  ynh_restore "/etc/cron.d/${app}_archivist_backups"
+fi
 
 #=================================================
 # RELOAD NGINX AND PHP-FPM OR THE APP SERVICE
 #=================================================
 ynh_script_progression "Reloading NGINX web server and $app's service..."
 
-ynh_systemctl --service="$app" --action="start"
+ynh_systemctl --service="${app}_main_agent_and_webUI" --action="start"
+ynh_systemctl --service="${app}_remote_server" --action="start"
 
 ynh_systemctl --service=nginx --action=reload
 
