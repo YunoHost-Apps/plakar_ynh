@@ -50,7 +50,16 @@ ynh_restore "/var/log/$app/"
 touch /var/log/$app/$app.log
 chown $app -R /var/log/$app
 
-ynh_restore "/etc/cron.d/$app"
+# Restore Cron configuration file
+if [ $default_yunohost_backup = 1 ]
+then
+  ynh_restore "/etc/cron.d/${app}_ynh_backups"
+fi
+
+if [ $archivist_yunohost_backup = 1 ]
+then
+  ynh_restore "/etc/cron.d/${app}_archivist_backups"
+fi
 
 #=================================================
 # RELOAD NGINX AND PHP-FPM OR THE APP SERVICE
