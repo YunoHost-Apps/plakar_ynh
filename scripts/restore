@@ -66,7 +66,8 @@ fi
 #=================================================
 ynh_script_progression "Reloading NGINX web server and $app's service..."
 
-ynh_systemctl --service="$app" --action="start"
+ynh_systemctl --service="${app}_main_agent_and_webUI" --action="start"
+ynh_systemctl --service="${app}_remote_server" --action="start"
 
 ynh_systemctl --service=nginx --action=reload
 
