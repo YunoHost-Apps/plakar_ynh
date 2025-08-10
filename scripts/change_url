@@ -12,7 +12,8 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Stopping $app's systemd service..."
 
-ynh_systemctl --service="$app" --action="stop"
+ynh_systemctl --service="${app}_main_agent_and_webUI" --action="stop"
+ynh_systemctl --service="${app}_remote_server" --action="stop"
 
 #=================================================
 # MODIFY URL IN NGINX CONF
