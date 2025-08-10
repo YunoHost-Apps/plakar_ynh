@@ -38,7 +38,7 @@ yunohost service add "${app}_remote_server" --description="Encrypted, queryable 
 ynh_script_progression "Starting systemd services..."
 
 
-ynh_systemctl --service="{app}_main_agent_and_webUI" --action="start"
+ynh_systemctl --service="${app}_main_agent_and_webUI" --action="start"
 ynh_systemctl --service="${app}_remote_server" --action="start"
 
 
