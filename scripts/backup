@@ -23,7 +23,8 @@ ynh_backup "$data_dir" --is_big
 
 ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
 
-ynh_backup "/etc/systemd/system/$app.service"
+ynh_backup "/etc/systemd/system/${app}_main_agent_and_webUI.service"
+ynh_backup "/etc/systemd/system/${app}_remote_server.service"
 
 #=================================================
 # BACKUP VARIOUS FILES
