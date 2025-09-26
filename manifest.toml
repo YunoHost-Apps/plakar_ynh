@@ -102,9 +102,9 @@ ram.runtime = "50M"
         in_subdir = false
         extract = true
         amd64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.4/plakar_1.0.4_linux_amd64.tar.gz"
-        amd64.sha256 = "f802ced4e9037741ebabc6956720946725c1677923541e9a23c8ff173a68e8cb"
-        arm64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.4/plakar_1.0.4_linux_amd64.tar.gz"
-        arm64.sha256 = "f802ced4e9037741ebabc6956720946725c1677923541e9a23c8ff173a68e8cb"
+        amd64.sha256 = "1fdbca9c63f02d28137739e1cae5d493bd81bd2d0182b3b5ac2fbb61f23fea4a"
+        arm64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.4/plakar_1.0.4_linux_arm64.tar.gz"
+        arm64.sha256 = "affad45bfac62238e386a601692f8051abe0757e514d2cdd7209fd48ffdb47d8"
 
         autoupdate.strategy = "latest_github_release"
 
