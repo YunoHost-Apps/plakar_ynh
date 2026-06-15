@@ -8,7 +8,7 @@ name = "Plakar"
 description.en = "Encrypted, queryable backups"
 description.fr = "Sauvegardes cryptées et interrogeables"
 
-version = "1.0.6~ynh1"
+version = "1.1.2~ynh1"
 
 maintainers = ["Lapineige"]
 
@@ -101,10 +101,10 @@ ram.runtime = "50M"
         [resources.sources.main]
         in_subdir = false
         extract = true
-        amd64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.6/plakar_1.0.6_linux_amd64.tar.gz"
-        amd64.sha256 = "a47e8e6998020233337627c6453cf1e8c89deb960ca129eb569c67c8bffeb460"
-        arm64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.0.6/plakar_1.0.6_linux_amd64.tar.gz"
-        arm64.sha256 = "a47e8e6998020233337627c6453cf1e8c89deb960ca129eb569c67c8bffeb460"
+        amd64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.1.2/plakar_1.1.2_linux_amd64.tar.gz"
+        amd64.sha256 = "a3c34479283fcf4dc51e0c49c20a6d03625863a0833928f10d5393d9cdb3a37c"
+        arm64.url = "https://github.com/PlakarKorp/plakar/releases/download/v1.1.2/plakar_1.1.2_linux_amd64.tar.gz"
+        arm64.sha256 = "a3c34479283fcf4dc51e0c49c20a6d03625863a0833928f10d5393d9cdb3a37c"
 
         autoupdate.strategy = "latest_github_release"
 
