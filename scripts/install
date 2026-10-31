@@ -54,7 +54,7 @@ if [ $encrypt = true ]
 then
   ynh_exec_as_app PLAKAR_PASSPHRASE=$encryption_passphrase $install_dir/plakar at $data_dir create
 else
-  ynh_exec_as_app $install_dir/plakar at $data_dir create -plaintext
+  ynh_exec_as_app PLAKAR_INSECURE_PLAINTEXT=1 $install_dir/plakar at $data_dir create -plaintext
   if ! [ -z $encryption_passphrase ]
   then
     encryption_passphrase='none'
